@@ -9,6 +9,6 @@ img {
     margin-right: 10px;
 }
 
-h1{
-    background-color: brown;
+body header nav div a{
+    color: brown;
 }
