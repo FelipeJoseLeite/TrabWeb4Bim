@@ -11,7 +11,7 @@
             integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
             crossorigin="anonymous" defer></script>
     <link rel="stylesheet" th:href="@{/style.css}">
-
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 </head>
 <body>
 <header>
@@ -24,13 +24,13 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="categoria">Cadastro de Categorias</a>
+                        <a class="nav-link active" aria-current="page" href="/categoria">Cadastro de Categorias</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="despesa">Cadastro de Despesa</a>
+                        <a class="nav-link active" aria-current="page" href="/despesa">Cadastro de Despesa</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="receita">Cadastro de Receita</a>
+                        <a class="nav-link active" aria-current="page" href="/receita">Cadastro de Receita</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link active" aria-current="page" href="consultaLançamento.html">Consulta de Gastos</a>
@@ -42,23 +42,61 @@
     <hr/>
     <hr/>
 </header>
-    <table class="table">
-        <thead>
-        <tr>
-            <th scope="col">#</th>
-            <th scope="col">Receita</th>
-            <th scope="col">Despesa</th>
-            <th scope="col">Total Liquido</th>
-        </tr>
-        </thead>
-        <tbody class="table-group-divider">
-        <tr>
-            <th scope="row">1</th>
-            <td>Mark</td>
-            <td>Otto</td>
-            <td>@mdo</td>
-        </tr>
-        </tbody>
-    </table>
+    <div class="container mt-5">
+        <h2>Painel de Resumo</h2>
+
+        <div class="row">
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Receita Total:</h5>
+                        <p class="card-text" th:text="${receitaTotal}"></p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Despesa Total:</h5>
+                        <p class="card-text" th:text="${despesaTotal}"></p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Total Líquido:</h5>
+                        <p class="card-text" th:text="${totalLiquido}"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <h2 class="mt-5">Últimos Lançamentos</h2>
+
+        <table class="table">
+            <thead class="thead-dark">
+            <tr>
+                <th>ID</th>
+                <th>Descrição</th>
+                <th>Valor</th>
+                <th>Data</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="lancamento : ${ultimosLancamentos}">
+                <td th:text="${lancamento.id}"></td>
+                <td th:text="${lancamento.descricao}"></td>
+                <td th:text="${lancamento.valor}"></td>
+                <td th:text="${lancamento.data}"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
 </body>
 </html>

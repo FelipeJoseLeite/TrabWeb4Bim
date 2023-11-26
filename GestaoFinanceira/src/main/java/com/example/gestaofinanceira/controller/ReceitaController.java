@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @Controller
-@RequestMapping("/receitas")
+@RequestMapping("/receita")
 public class ReceitaController {
 
     @Autowired
@@ -18,40 +18,40 @@ public class ReceitaController {
 
     @GetMapping
     public String listarReceitas(Model model) {
-        List<Receita> receitas = receitaService.listarReceitas();
-        model.addAttribute("receitas", receitas);
-        return "receitas/listagem";
+        List<Receita> receita = receitaService.listarReceitas();
+        model.addAttribute("receita", receita);
+        return "receita/listagemReceita";
     }
 
     @GetMapping("/nova")
     public String novaReceitaForm(Model model){
         model.addAttribute("receita", new Receita());
-        return "receita/formulario";
+        return "receita/cadastroReceita";
     }
 
     @PostMapping("/nova")
     public String salvarNovaReceita(@ModelAttribute("receita") Receita receita) {
         receitaService.salvarReceita(receita);
-        return "redirect:/receitas";
+        return "redirect:/receita";
     }
 
     @GetMapping("/editar/{id}")
     public String editarReceitaForm(@PathVariable Long id, Model model) {
         Receita receita = receitaService.buscarReceitaPorId(id);
         model.addAttribute("receita", receita);
-        return "receitas/formulario";
+        return "receita/cadastroReceita";
     }
 
     @PostMapping("/editar")
     public String salvarReceitaEditada(@ModelAttribute("receita") Receita receita) {
         receitaService.salvarReceita(receita);
-        return "redirect:/receitas";
+        return "redirect:/receita";
     }
 
     @GetMapping("/excluir/{id}")
     public String excluirReceita(@PathVariable Long id) {
         receitaService.excluirReceita(id);
-        return "redirect:/receitas";
+        return "redirect:/receita";
     }
 
 }

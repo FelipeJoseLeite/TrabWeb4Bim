@@ -13,7 +13,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 @Controller
-@RequestMapping("/lancamentos")
+@RequestMapping("/lancamento")
 public class LancamentoController {
 
     @Autowired
@@ -26,10 +26,10 @@ public class LancamentoController {
             @RequestParam(required = false) String tipo,
             Model model) {
 
-        List<Lancamento> lancamentos = lancamentoService.consultarLancamentos(dataInicio, dataFim, tipo);
-        model.addAttribute("lancamentos", lancamentos);
+        List<Lancamento> lancamento = lancamentoService.consultarLancamentos(dataInicio, dataFim, tipo);
+        model.addAttribute("lancamento", lancamento);
 
-        return "lancamentos/consulta";
+        return "consultaLançamento";
     }
 
 }

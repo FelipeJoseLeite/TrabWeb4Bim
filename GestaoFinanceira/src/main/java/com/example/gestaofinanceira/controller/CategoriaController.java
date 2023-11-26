@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @Controller
-@RequestMapping("/categorias")
+@RequestMapping("/categoria")
 public class CategoriaController {
 
     @Autowired
@@ -18,40 +18,40 @@ public class CategoriaController {
 
     @GetMapping
     public String listarCategorias(Model model){
-        List<Categoria> categorias = categoriaService.listarCategorias();
-        model.addAttribute("categorias", categorias);
-        return "categorias/listagem";
+        List<Categoria> categoria = categoriaService.listarCategorias();
+        model.addAttribute("categorias", categoria);
+        return "categoria/listagemCategoria";
     }
 
     @GetMapping("/excluir/{id}")
     public String excluirCategoria(@PathVariable Long id) {
         categoriaService.excluirCategoria(id);
-        return "redirect:/categorias";
+        return "redirect:/categoria";
     }
 
     @GetMapping("/editar/{id}")
     public String editarCategoriaForm(@PathVariable Long id, Model model) {
         Categoria categoria = categoriaService.buscarCategoriaPorId(id);
         model.addAttribute("categoria", categoria);
-        return "categorias/formulario";
+        return "categoria/cadastroCategoria";
     }
 
     @PostMapping("/editar")
     public String salvarCategoriaEditada(@ModelAttribute("categoria") Categoria categoria) {
         categoriaService.salvarCategoria(categoria);
-        return "redirect:/categorias";
+        return "redirect:/categoria";
     }
 
     @PostMapping("/nova")
     public String salvarNovaCategoria(@ModelAttribute("categoria") Categoria categoria) {
         categoriaService.salvarCategoria(categoria);
-        return "redirect:/categorias";
+        return "redirect:/categoria";
     }
 
     @GetMapping("/nova")
     public String novaCategoriaForm(Model model) {
         model.addAttribute("categoria", new Categoria());
-        return "categorias/formulario";
+        return "categoria/cadastroCategoria";
     }
 
 }
