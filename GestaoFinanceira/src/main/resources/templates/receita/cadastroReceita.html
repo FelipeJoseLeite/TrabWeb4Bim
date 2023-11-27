@@ -60,6 +60,28 @@
             <button type="submit" class="btn btn-primary">Salvar</button>
         </form>
     </div>
+    <div class="container mt-5">
+        <h2>Listagem de Receitas</h2>
+
+        <table class="table">
+            <thead class="thead-dark">
+            <tr>
+                <th>ID</th>
+                <th>Descrição</th>
+                <th>Valor</th>
+                <th>Data</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="receita : ${receita}">
+                <td th:text="${receita.id}"></td>
+                <td th:text="${receita.descricao}"></td>
+                <td th:text="${receita.valor}"></td>
+                <td th:text="${receita.data}"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
 
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>

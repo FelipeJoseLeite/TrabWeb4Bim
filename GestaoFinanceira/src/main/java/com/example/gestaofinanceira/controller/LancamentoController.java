@@ -29,7 +29,7 @@ public class LancamentoController {
         List<Lancamento> lancamento = lancamentoService.consultarLancamentos(dataInicio, dataFim, tipo);
         model.addAttribute("lancamento", lancamento);
 
-        return "consultaLançamento";
+        return "consultaLancamento";
     }
 
 }

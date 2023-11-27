@@ -19,8 +19,8 @@ public class CategoriaController {
     @GetMapping
     public String listarCategorias(Model model){
         List<Categoria> categoria = categoriaService.listarCategorias();
-        model.addAttribute("categorias", categoria);
-        return "categoria/listagemCategoria";
+        model.addAttribute("categoria", categoria);
+        return "categoria/cadastroCategoria";
     }
 
     @GetMapping("/excluir/{id}")
