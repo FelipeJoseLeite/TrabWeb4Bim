@@ -20,38 +20,38 @@ public class CategoriaController {
     public String listarCategorias(Model model){
         List<Categoria> categoria = categoriaService.listarCategorias();
         model.addAttribute("categoria", categoria);
-        return "categoria/cadastroCategoria";
+        return "cadastroCategoria";
     }
 
     @GetMapping("/excluir/{id}")
     public String excluirCategoria(@PathVariable Long id) {
         categoriaService.excluirCategoria(id);
-        return "redirect:/categoria";
+        return "redirect:/cadastroCategoria";
     }
 
     @GetMapping("/editar/{id}")
     public String editarCategoriaForm(@PathVariable Long id, Model model) {
         Categoria categoria = categoriaService.buscarCategoriaPorId(id);
         model.addAttribute("categoria", categoria);
-        return "categoria/cadastroCategoria";
+        return "cadastroCategoria";
     }
 
     @PostMapping("/editar")
     public String salvarCategoriaEditada(@ModelAttribute("categoria") Categoria categoria) {
         categoriaService.salvarCategoria(categoria);
-        return "redirect:/categoria";
+        return "redirect:/cadastroCategoria";
     }
 
     @PostMapping("/nova")
     public String salvarNovaCategoria(@ModelAttribute("categoria") Categoria categoria) {
         categoriaService.salvarCategoria(categoria);
-        return "redirect:/categoria";
+        return "redirect:/cadastroCategoria";
     }
 
     @GetMapping("/nova")
     public String novaCategoriaForm(Model model) {
         model.addAttribute("categoria", new Categoria());
-        return "categoria/cadastroCategoria";
+        return "cadastroCategoria";
     }
 
 }

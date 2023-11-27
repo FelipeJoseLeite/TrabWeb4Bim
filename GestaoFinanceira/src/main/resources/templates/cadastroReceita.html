@@ -44,7 +44,7 @@
     <div class="container mt-5">
         <h2>Cadastro de Receita</h2>
 
-        <form th:action="@{/receitas/nova}" th:object="${receita}" method="post">
+        <form th:action="@{/receita/nova}" th:object="${receita}" method="post">
             <div class="form-group">
                 <label for="descricao">Descrição:</label>
                 <input type="text" th:field="*{descricao}" class="form-control">
@@ -56,6 +56,12 @@
             <div class="form-group">
                 <label for="data">Data:</label>
                 <input type="date" th:field="*{data}" class="form-control">
+            </div>
+            <div class="form-group">
+                <label for="categoria">Categoria:</label>
+                <select th:field="*{categoria}" class="form-control">
+                    <option th:each="categoria : ${categorias}" th:value="${categoria}" th:text="${categoria.nome}"></option>
+                </select>
             </div>
             <button type="submit" class="btn btn-primary">Salvar</button>
         </form>

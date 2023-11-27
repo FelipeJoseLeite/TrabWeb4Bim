@@ -1,9 +1,9 @@
 package com.example.gestaofinanceira.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import javax.validation.constraints.DecimalMin;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
@@ -12,18 +12,26 @@ public class Receita {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @NotBlank(message = "A descrição é obrigatória")
     private String descricao;
+    @NotNull(message = "O valor é obrigatório")
+    @DecimalMin(value = "0.01", message = "O valor deve ser maior que zero")
     private BigDecimal valor;
+    @NotNull(message = "A data é obrigatória")
     private LocalDate data;
+    @ManyToOne
+    @JoinColumn(name = "categoria_id")
+    private Categoria categoria;
 
     public Receita() {
     }
 
-    public Receita(Long id, String descricao, BigDecimal valor, LocalDate data) {
+    public Receita(Long id, String descricao, BigDecimal valor, LocalDate data, Categoria categoria) {
         this.id = id;
         this.descricao = descricao;
         this.valor = valor;
         this.data = data;
+        this.categoria = categoria;
     }
 
     public Long getId() {
@@ -56,5 +64,13 @@ public class Receita {
 
     public void setData(LocalDate data) {
         this.data = data;
+    }
+
+    public Categoria getCategoria() {
+        return categoria;
+    }
+
+    public void setCategoria(Categoria categoria) {
+        this.categoria = categoria;
     }
 }
