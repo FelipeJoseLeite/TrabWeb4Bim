@@ -46,21 +46,21 @@
 
         <form th:action="@{/receita/nova}" th:object="${receita}" method="post">
             <div class="form-group">
-                <label for="descricao">Descrição:</label>
+                <label th:for="descricao">Descrição:</label>
                 <input type="text" th:field="*{descricao}" class="form-control">
             </div>
             <div class="form-group">
-                <label for="valor">Valor:</label>
+                <label th:for="valor">Valor:</label>
                 <input type="text" th:field="*{valor}" class="form-control">
             </div>
             <div class="form-group">
-                <label for="data">Data:</label>
+                <label th:for="data">Data:</label>
                 <input type="date" th:field="*{data}" class="form-control">
             </div>
             <div class="form-group">
-                <label for="categoria">Categoria:</label>
+                <label th:for="categoria">Categoria:</label>
                 <select th:field="*{categoria}" class="form-control">
-                    <option th:each="categoria : ${categorias}" th:value="${categoria}" th:text="${categoria.nome}"></option>
+                    <option th:each="categoria : ${categoria}" th:value="${categoria}" th:text="${categoria.nome}"></option>
                 </select>
             </div>
             <button type="submit" class="btn btn-primary">Salvar</button>

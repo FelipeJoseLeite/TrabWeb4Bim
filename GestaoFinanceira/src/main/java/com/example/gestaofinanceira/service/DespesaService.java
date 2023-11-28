@@ -21,12 +21,4 @@ public class DespesaService {
         despesaRepository.saveAndFlush(despesa);
     }
 
-    public Despesa buscarDespesaPorId(Long id) {
-        return despesaRepository.findById(id).orElse(null);
-    }
-
-    public void excluirDespesa(Long id) {
-        despesaRepository.deleteById(id);
-    }
-
 }

@@ -26,13 +26,13 @@
                             <a class="nav-link active" aria-current="page" href="/categoria">Cadastro de Categorias</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="cadastroDespesa.html">Cadastro de Despesa</a>
+                            <a class="nav-link active" aria-current="page" href="/despesa">Cadastro de Despesa</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="cadastroReceita.html">Cadastro de Receita</a>
+                            <a class="nav-link active" aria-current="page" href="/receita">Cadastro de Receita</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="consultaLancamento.html">Consulta de Gastos</a>
+                            <a class="nav-link active" aria-current="page" href="/lancamento">Consulta de Gastos</a>
                         </li>
                     </ul>
                 </div>
@@ -44,23 +44,38 @@
     <div class="container mt-5">
         <h2>Cadastro de Despesa</h2>
 
-        <form th:action="@{/despesa/nova}" th:object="${despesa}" method="post">
+        <form  class="card-body" method="POST" action="/salvar" th:object="${despesa}" >
             <div class="form-group">
-                <label for="descricao">Descrição:</label>
-                <input type="text" th:field="*{descricao}" class="form-control">
+                <label >Descrição:</label>
+                <input id="descricao"
+                       type="text"
+                       readonly
+                       class="form-control-plaintext"
+                       name="descricao"
+                       th:value="${despesa != null ? despesa.descricao : ''}">
             </div>
             <div class="form-group">
-                <label for="valor">Valor:</label>
-                <input type="text" th:field="*{valor}" class="form-control">
+                <label th:for="valor">Valor:</label>
+                <input id="valor"
+                       type="text"
+                       readonly
+                       class="form-control-plaintext"
+                       name="valor"
+                       th:value="${despesa.valor}">
             </div>
             <div class="form-group">
-                <label for="data">Data:</label>
-                <input type="date" th:field="*{data}" class="form-control">
+                <label th:for="data">Data:</label>
+                <input id="data"
+                       type="text"
+                       readonly
+                       class="form-control-plaintext"
+                       name="data"
+                       th:value="${despesa.data}">
             </div>
             <div class="form-group">
-                <label for="categoria">Categoria:</label>
+                <label th:for="categorias">Categoria:</label>
                 <select th:field="*{categoria}" class="form-control">
-                    <option th:each="categoria : ${categorias}" th:value="${categoria}" th:text="${categoria.nome}"></option>
+                    <option th:each="categoria : ${categorias}" th:value="${categoria}" th:text="${categoria}"></option>
                 </select>
             </div>
             <button type="submit" class="btn btn-primary">Salvar</button>
@@ -79,7 +94,7 @@
             </tr>
             </thead>
             <tbody>
-            <tr th:each="despesa : ${despesas}">
+            <tr th:each="despesa : ${despesa}">
                 <td th:text="${despesa.id}"></td>
                 <td th:text="${despesa.descricao}"></td>
                 <td th:text="${despesa.valor}"></td>

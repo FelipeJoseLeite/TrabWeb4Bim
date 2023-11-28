@@ -7,7 +7,9 @@ import com.example.gestaofinanceira.service.DespesaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 
@@ -21,41 +23,22 @@ public class DespesaController {
     @Autowired
     private CategoriaService categoriaService;
 
-    @GetMapping
-    public String listarDespesas(Model model) {
-        List<Despesa> despesa = despesaService.listarDespesas();
-        model.addAttribute("despesas", despesa);
-        return "cadastroDespesa";
-    }
-
-    @GetMapping("/nova")
-    public String novaDespesaForm(Model model) {
+    @GetMapping("/cadastroDespesa")
+    public String mostrarFormulario(Model model) {
         model.addAttribute("despesa", new Despesa());
         return "cadastroDespesa";
     }
 
-    @PostMapping("/nova")
-    public String salvarNovaDespesa(@ModelAttribute("despesa") Despesa despesa) {
-        despesaService.salvarDespesa(despesa);
-        return "redirect:/cadastroDespesa";
-    }
-
-    @GetMapping("/editar/{id}")
-    public String editarDespesaForm(@PathVariable Long id, Model model) {
-        Despesa despesa = despesaService.buscarDespesaPorId(id);
+    @GetMapping("/listar")
+    public String listarDespesas(Model model) {
+        List<Despesa> despesa = despesaService.listarDespesas();
         model.addAttribute("despesa", despesa);
         return "cadastroDespesa";
     }
 
-    @PostMapping("/editar")
-    public String salvarDespesaEditada(@ModelAttribute("despesa") Despesa despesa) {
+    @PostMapping("/salvar")
+    public String salvaDespesa(@ModelAttribute("despesa")Despesa despesa){
         despesaService.salvarDespesa(despesa);
-        return "redirect:/cadastroDespesa";
-    }
-
-    @GetMapping("/excluir/{id}")
-    public String excluirDespesa(@PathVariable Long id) {
-        despesaService.excluirDespesa(id);
         return "redirect:/cadastroDespesa";
     }
 
