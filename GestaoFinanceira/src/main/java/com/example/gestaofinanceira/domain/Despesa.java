@@ -12,12 +12,11 @@ public class Despesa {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @NotBlank(message = "A descrição é obrigatória")
+
     private String descricao;
-    @NotNull(message = "O valor é obrigatório")
-    @DecimalMin(value = "0.01", message = "O valor deve ser maior que zero")
+
     private BigDecimal valor;
-    @NotNull(message = "A data é obrigatória")
+
     private LocalDate data;
 
     @ManyToOne

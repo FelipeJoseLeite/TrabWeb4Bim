@@ -18,7 +18,7 @@ public class CategoriaService {
     }
 
     public void salvarCategoria(Categoria categoria) {
-        categoriaRepository.save(categoria);
+        categoriaRepository.saveAndFlush(categoria);
     }
 
     public Categoria buscarCategoriaPorId(Long id) {

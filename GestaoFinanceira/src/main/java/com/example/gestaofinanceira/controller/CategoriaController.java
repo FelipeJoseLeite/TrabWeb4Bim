@@ -18,8 +18,8 @@ public class CategoriaController {
 
     @GetMapping
     public String listarCategorias(Model model){
-        List<Categoria> categoria = categoriaService.listarCategorias();
-        model.addAttribute("categoria", categoria);
+        List<Categoria> categorias = categoriaService.listarCategorias();
+        model.addAttribute("categoria", categorias);
         return "cadastroCategoria";
     }
 

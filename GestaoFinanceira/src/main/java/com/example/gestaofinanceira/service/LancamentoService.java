@@ -3,7 +3,6 @@ package com.example.gestaofinanceira.service;
 import com.example.gestaofinanceira.domain.Lancamento;
 import com.example.gestaofinanceira.repository.LancamentoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;

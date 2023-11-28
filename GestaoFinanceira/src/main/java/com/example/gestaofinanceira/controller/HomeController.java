@@ -19,13 +19,17 @@ public class HomeController {
         // Busca os totais
         Double receitaTotal = lancamentoService.calcularTotalReceita();
         Double despesaTotal = lancamentoService.calcularTotalDespesa();
-        Double totalLiquido = receitaTotal - despesaTotal;
+
+        if(receitaTotal != 0 && despesaTotal != 0){
+            Double totalLiquido = receitaTotal - despesaTotal;
+            model.addAttribute("totalLiquido", totalLiquido);
+
+        }
 
         List<Lancamento> ultimosLancamentos = lancamentoService.buscarUltimosLancamentos(10);
 
         model.addAttribute("receitaTotal", receitaTotal);
         model.addAttribute("despesaTotal", despesaTotal);
-        model.addAttribute("totalLiquido", totalLiquido);
         model.addAttribute("ultimosLancamentos", ultimosLancamentos);
 
         return "home";

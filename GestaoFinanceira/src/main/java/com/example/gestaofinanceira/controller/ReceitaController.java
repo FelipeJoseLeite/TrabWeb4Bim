@@ -37,7 +37,7 @@ public class ReceitaController {
     @PostMapping("/nova")
     public String salvarNovaReceita(@ModelAttribute("receita") Receita receita) {
         receitaService.salvarReceita(receita);
-        return "redirect:/cadastroReceita";
+        return "redirect:/receita";
     }
 
     @GetMapping("/editar/{id}")
@@ -50,19 +50,19 @@ public class ReceitaController {
     @PostMapping("/editar")
     public String salvarReceitaEditada(@ModelAttribute("receita") Receita receita) {
         receitaService.salvarReceita(receita);
-        return "redirect:/cadastroReceita";
+        return "redirect:/receita";
     }
 
     @GetMapping("/excluir/{id}")
     public String excluirReceita(@PathVariable Long id) {
         receitaService.excluirReceita(id);
-        return "redirect:/cadastroReceita";
+        return "redirect:/receita";
     }
 
     @GetMapping("/cadastro-receita")
     public String exibirFormularioReceita(Model model) {
         List<Categoria> categoria = categoriaService.listarCategorias();
-        model.addAttribute("categorias", categoria);
+        model.addAttribute("categoria", categoria);
         return "cadastroReceita";
     }
 

@@ -18,7 +18,7 @@ public class DespesaService {
     }
 
     public void salvarDespesa(Despesa despesa) {
-        despesaRepository.save(despesa);
+        despesaRepository.saveAndFlush(despesa);
     }
 
     public Despesa buscarDespesaPorId(Long id) {
