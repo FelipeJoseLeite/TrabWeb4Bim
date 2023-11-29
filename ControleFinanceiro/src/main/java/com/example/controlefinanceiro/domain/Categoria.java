@@ -1,10 +1,11 @@
-package com.example.gestaofinanceira.domain;
+package com.example.controlefinanceiro.domain;
 
 import javax.persistence.*;
 
 @Entity
 @Table(name = "CATEGORIA")
 public class Categoria {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -33,5 +34,4 @@ public class Categoria {
     public void setNome(String nome) {
         this.nome = nome;
     }
-
 }

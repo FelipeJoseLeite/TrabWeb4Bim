@@ -28,4 +28,13 @@ public class CategoriaService {
     public void excluirCategoria(Long id) {
         categoriaRepository.deleteById(id);
     }
+
+    public void insert(Categoria categoria) {
+        categoriaRepository.saveAndFlush(categoria);
+    }
+
+    public List<Categoria> listAll() {
+        return categoriaRepository.findAllByOrderByIdAsc();
+    }
+
 }

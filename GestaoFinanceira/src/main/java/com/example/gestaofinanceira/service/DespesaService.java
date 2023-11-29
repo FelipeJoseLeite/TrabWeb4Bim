@@ -1,5 +1,6 @@
 package com.example.gestaofinanceira.service;
 
+import com.example.gestaofinanceira.domain.Categoria;
 import com.example.gestaofinanceira.domain.Despesa;
 import com.example.gestaofinanceira.repository.DespesaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,12 +14,12 @@ public class DespesaService {
     @Autowired
     private DespesaRepository despesaRepository;
 
-    public List<Despesa> listarDespesas() {
-        return despesaRepository.findAll();
+    public void insert(Despesa despesa) {
+        despesaRepository.saveAndFlush(despesa);
     }
 
-    public void salvarDespesa(Despesa despesa) {
-        despesaRepository.saveAndFlush(despesa);
+    public List<Despesa> listAll() {
+        return despesaRepository.findAllByOrderByIdAsc();
     }
 
 }

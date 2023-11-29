@@ -13,20 +13,16 @@ public class ReceitaService {
     @Autowired
     private ReceitaRepository receitaRepository;
 
-    public List<Receita> listarReceitas() {
+    public List<Receita> listaReceita() {
         return receitaRepository.findAll();
     }
 
-    public void salvarReceita(Receita receita) {
-        receitaRepository.save(receita);
+    public void insert(Receita receita) {
+        receitaRepository.saveAndFlush(receita);
     }
 
-    public Receita buscarReceitaPorId(Long id) {
-        return receitaRepository.findById(id).orElse(null);
-    }
-
-    public void excluirReceita(Long id) {
-        receitaRepository.deleteById(id);
+    public List<Receita> listAll() {
+        return receitaRepository.findAllByOrderByIdAsc();
     }
 
 }

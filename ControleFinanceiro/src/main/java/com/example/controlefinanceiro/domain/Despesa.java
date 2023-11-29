@@ -14,6 +14,10 @@ public class Despesa {
     private String data;
     private String valor;
 
+    @ManyToOne
+    @JoinColumn(name = "categoria_id")
+    private Categoria categoria;
+
     public Despesa() {
     }
 

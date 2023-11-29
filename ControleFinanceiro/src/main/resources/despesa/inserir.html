@@ -35,10 +35,10 @@
     <main>
         <div class="container mt-5">
             <h2>Cadastro de Receita</h2>
-            <form>
+            <form class="card-body" method="post" action="/despesa" th:object="${despesa}">
                 <div class="form-group">
                     <label th:for="descricao">Descricao:</label>
-                    <input type="text" class="form-control">
+                    <input type="text" class="form-control" th:value="${despesa}">
                 </div>
                 <div class="form-group">
                     <label th:for="data">Data:</label>

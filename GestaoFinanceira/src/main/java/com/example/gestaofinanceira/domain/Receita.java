@@ -1,13 +1,11 @@
 package com.example.gestaofinanceira.domain;
 
 import javax.persistence.*;
-import javax.validation.constraints.DecimalMin;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
 @Entity
+@Table(name = "RECEITA")
 public class Receita {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -16,7 +14,9 @@ public class Receita {
     private String descricao;
 
     private BigDecimal valor;
+
     private LocalDate data;
+
     @ManyToOne
     @JoinColumn(name = "categoria_id")
     private Categoria categoria;

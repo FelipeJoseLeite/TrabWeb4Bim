@@ -7,10 +7,16 @@ import com.example.gestaofinanceira.service.DespesaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.validation.Valid;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -20,33 +26,60 @@ public class DespesaController {
     @Autowired
     private DespesaService despesaService;
 
-    @Autowired
-    private CategoriaService categoriaService;
+    @GetMapping
+    public ModelAndView listaDespesa(ModelMap model){
+        ModelAndView modelAndView = new ModelAndView("cadastroDespesa");
 
-    @GetMapping("/cadastroDespesa")
-    public String mostrarFormulario(Model model) {
-        model.addAttribute("despesa", new Despesa());
-        return "cadastroDespesa";
+        if (model.containsAttribute("despesa"))
+            modelAndView.addObject("despesa",
+                    model.getAttribute("despesa"));
+        else {
+            modelAndView.addObject("despesa", despesaService.listAll());
+        }
+
+        return modelAndView;
     }
 
-    @GetMapping("/listar")
-    public String listarDespesas(Model model) {
-        List<Despesa> despesa = despesaService.listarDespesas();
-        model.addAttribute("despesa", despesa);
-        return "cadastroDespesa";
+    @PostMapping
+    public String salvarDespesa(@Valid Despesa despesa,
+                                  BindingResult bindingResult,
+                                  RedirectAttributes redirectAttributes){
+
+        List<String> msg = new ArrayList<>();
+
+        if (bindingResult.hasErrors() || !msg.isEmpty()) {
+            redirectAttributes.addFlashAttribute("despesa", despesa);
+
+            for (ObjectError objectError : bindingResult.getAllErrors()) {
+                msg.add(
+                        ((FieldError) objectError).getField() + " " +
+                                objectError.getDefaultMessage());
+            }
+
+            redirectAttributes.addFlashAttribute("msg", msg);
+
+            return "redirect:/despesa/criar";
+        }
+
+        despesaService.insert(despesa);
+
+        return "redirect:/despesa";
     }
 
-    @PostMapping("/salvar")
-    public String salvaDespesa(@ModelAttribute("despesa")Despesa despesa){
-        despesaService.salvarDespesa(despesa);
-        return "redirect:/cadastroDespesa";
-    }
+    @GetMapping(path = "/criar")
+    public ModelAndView retornaNovaDespesa(ModelMap model) {
+        ModelAndView modelAndView = new ModelAndView("cadastroDespesa");
 
-    @GetMapping("/cadastro-receita")
-    public String exibirFormularioReceita(Model model) {
-        List<Categoria> categorias = categoriaService.listarCategorias();
-        model.addAttribute("categorias", categorias);
-        return "cadastroDespesa";
+        if (model.containsAttribute("despesa")) {
+            modelAndView.addObject("despesa", model.getAttribute("despesa"));
+            modelAndView.addObject("msg", model.getAttribute("msg"));
+
+        } else {
+            modelAndView.addObject("despesa", new Despesa());
+            modelAndView.addObject("msg", new ArrayList<String>());
+        }
+
+        return modelAndView;
     }
 
 }

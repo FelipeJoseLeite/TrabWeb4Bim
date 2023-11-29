@@ -1,13 +1,11 @@
 package com.example.gestaofinanceira.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
 @Entity
+@Table(name = "LANCAMENTO")
 public class Lancamento {
 
     @Id

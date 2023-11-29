@@ -43,23 +43,22 @@
 </header>
     <div class="container mt-5">
         <h2>Cadastro de Receita</h2>
-
-        <form th:action="@{/receita/nova}" th:object="${receita}" method="post">
+        <form class="card-body"  method="post" action="/receita" th:object="${receita}">
             <div class="form-group">
-                <label th:for="descricao">Descrição:</label>
-                <input type="text" th:field="*{descricao}" class="form-control">
+                <label for="descricao" class="form-label">Descrição</label>
+                <input id="descricao" type="text" class="form-control" name="descricao" th:value="${receita.descricao}">
             </div>
             <div class="form-group">
                 <label th:for="valor">Valor:</label>
-                <input type="text" th:field="*{valor}" class="form-control">
+                <input id="valor" type="number" name="valor" class="form-control" th:value="${receita.valor}">
             </div>
             <div class="form-group">
                 <label th:for="data">Data:</label>
-                <input type="date" th:field="*{data}" class="form-control">
+                <input id="data" type="date" class="form-control" name="data" th:value="${receita.data}">
             </div>
             <div class="form-group">
                 <label th:for="categoria">Categoria:</label>
-                <select th:field="*{categoria}" class="form-control">
+                <select  class="form-control">
                     <option th:each="categoria : ${categoria}" th:value="${categoria}" th:text="${categoria.nome}"></option>
                 </select>
             </div>

@@ -44,38 +44,26 @@
     <div class="container mt-5">
         <h2>Cadastro de Despesa</h2>
 
-        <form  class="card-body" method="POST" action="/salvar" th:object="${despesa}" >
+        <form class="card-body"  method="post" action="/despesa" th:object="${despesa}">
             <div class="form-group">
-                <label >Descrição:</label>
+                <label for="descricao">Descrição:</label>
                 <input id="descricao"
                        type="text"
-                       readonly
-                       class="form-control-plaintext"
                        name="descricao"
-                       th:value="${despesa != null ? despesa.descricao : ''}">
+                       class="form-control">
             </div>
             <div class="form-group">
-                <label th:for="valor">Valor:</label>
-                <input id="valor"
-                       type="text"
-                       readonly
-                       class="form-control-plaintext"
-                       name="valor"
-                       th:value="${despesa.valor}">
+                <label for="valor">Valor:</label>
+                <input id="valor" type="text"  class="form-control">
             </div>
             <div class="form-group">
-                <label th:for="data">Data:</label>
-                <input id="data"
-                       type="text"
-                       readonly
-                       class="form-control-plaintext"
-                       name="data"
-                       th:value="${despesa.data}">
+                <label for="data">Data:</label>
+                <input id="data" type="date" class="form-control">
             </div>
             <div class="form-group">
-                <label th:for="categorias">Categoria:</label>
-                <select th:field="*{categoria}" class="form-control">
-                    <option th:each="categoria : ${categorias}" th:value="${categoria}" th:text="${categoria}"></option>
+                <label th:for="categoria">Categoria:</label>
+                <select  class="form-control">
+                    <option ></option>
                 </select>
             </div>
             <button type="submit" class="btn btn-primary">Salvar</button>
@@ -94,11 +82,7 @@
             </tr>
             </thead>
             <tbody>
-            <tr th:each="despesa : ${despesa}">
-                <td th:text="${despesa.id}"></td>
-                <td th:text="${despesa.descricao}"></td>
-                <td th:text="${despesa.valor}"></td>
-                <td th:text="${despesa.data}"></td>
+            <tr>
             </tr>
             </tbody>
         </table>

@@ -5,8 +5,16 @@ import com.example.gestaofinanceira.service.CategoriaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.validation.Valid;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -17,41 +25,60 @@ public class CategoriaController {
     private CategoriaService categoriaService;
 
     @GetMapping
-    public String listarCategorias(Model model){
-        List<Categoria> categorias = categoriaService.listarCategorias();
-        model.addAttribute("categoria", categorias);
-        return "cadastroCategoria";
+    public ModelAndView listaCategorias(ModelMap model){
+        ModelAndView modelAndView = new ModelAndView("cadastroCategoria");
+
+        if (model.containsAttribute("categoria"))
+            modelAndView.addObject("categoria",
+                    model.getAttribute("categoria"));
+        else {
+            modelAndView.addObject("categoria", categoriaService.listAll());
+        }
+
+        return modelAndView;
     }
 
-    @GetMapping("/excluir/{id}")
-    public String excluirCategoria(@PathVariable Long id) {
-        categoriaService.excluirCategoria(id);
+    @PostMapping
+    public String salvarCategoria(@Valid Categoria categoria,
+                                   BindingResult bindingResult,
+                                   RedirectAttributes redirectAttributes){
+
+        List<String> msg = new ArrayList<>();
+
+        if (bindingResult.hasErrors() || !msg.isEmpty()) {
+            redirectAttributes.addFlashAttribute("categoria", categoria);
+
+            for (ObjectError objectError : bindingResult.getAllErrors()) {
+                msg.add(
+                        ((FieldError) objectError).getField() + " " +
+                                objectError.getDefaultMessage());
+            }
+
+            redirectAttributes.addFlashAttribute("msg", msg);
+
+            return "redirect:/cadastroCategoria";
+        }
+
+        categoriaService.insert(categoria);
+
         return "redirect:/cadastroCategoria";
     }
 
-    @GetMapping("/editar/{id}")
-    public String editarCategoriaForm(@PathVariable Long id, Model model) {
-        Categoria categoria = categoriaService.buscarCategoriaPorId(id);
-        model.addAttribute("categoria", categoria);
-        return "cadastroCategoria";
+    @GetMapping(path = "/criar")
+    public ModelAndView retornaNovaCategoria(ModelMap model) {
+        ModelAndView modelAndView = new ModelAndView("cadastroCategoria");
+
+        if (model.containsAttribute("categoria")) {
+            modelAndView.addObject("categoria", model.getAttribute("categoria"));
+            modelAndView.addObject("msg", model.getAttribute("msg"));
+
+        } else {
+            modelAndView.addObject("categoria", new Categoria());
+            modelAndView.addObject("msg", new ArrayList<String>());
+        }
+
+        return modelAndView;
     }
 
-    @PostMapping("/editar")
-    public String salvarCategoriaEditada(@ModelAttribute("categoria") Categoria categoria) {
-        categoriaService.salvarCategoria(categoria);
-        return "redirect:/cadastroCategoria";
-    }
-
-    @PostMapping("/nova")
-    public String salvarNovaCategoria(@ModelAttribute("categoria") Categoria categoria) {
-        categoriaService.salvarCategoria(categoria);
-        return "redirect:/cadastroCategoria";
-    }
-
-    @GetMapping("/nova")
-    public String novaCategoriaForm(Model model) {
-        model.addAttribute("categoria", new Categoria());
-        return "cadastroCategoria";
-    }
 
 }
