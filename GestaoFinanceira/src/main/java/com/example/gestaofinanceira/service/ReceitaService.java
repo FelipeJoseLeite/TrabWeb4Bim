@@ -21,6 +21,10 @@ public class ReceitaService {
         receitaRepository.saveAndFlush(receita);
     }
 
+    public Receita findById(Long id){
+        return receitaRepository.findById(id).get();
+    }
+
     public List<Receita> listAll() {
         return receitaRepository.findAllByOrderByIdAsc();
     }

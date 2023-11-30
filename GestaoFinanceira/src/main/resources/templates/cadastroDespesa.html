@@ -41,31 +41,42 @@
         <hr/>
         <hr/>
     </header>
+
+    <div class="container mt-5">
+        <div class="row" th:if="${not #lists.isEmpty(msg)}">
+            <div th:each="msg : ${msg}">
+                <div class="alert alert-warning" role="alert" th:text="${msg}">
+                    Mensagem de Alerta
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div class="container mt-5">
         <h2>Cadastro de Despesa</h2>
 
-        <form class="card-body"  method="post" action="/despesa" th:object="${despesa}">
+        <form class="card-body"  method="POST" action="/despesa" th:object="${despesa}">
             <div class="form-group">
-                <label for="descricao">Descrição:</label>
-                <input id="descricao"
-                       type="text"
-                       name="descricao"
-                       class="form-control">
+                <label for="descricao" class="form-label">Descrição</label>
+                <input id="descricao" type="text" class="form-control" name="descricao" th:value="${despesa?.descricao}">
             </div>
             <div class="form-group">
-                <label for="valor">Valor:</label>
-                <input id="valor" type="text"  class="form-control">
+                <label th:for="valor">Valor:</label>
+                <input id="valor" type="number" name="valor" class="form-control" th:value="${despesa?.valor}">
             </div>
             <div class="form-group">
-                <label for="data">Data:</label>
-                <input id="data" type="date" class="form-control">
+                <label th:for="data">Data:</label>
+                <input id="data" type="date" class="form-control" name="data" th:value="${despesa?.data}">
             </div>
             <div class="form-group">
                 <label th:for="categoria">Categoria:</label>
-                <select  class="form-control">
-                    <option ></option>
+                <select class="form-select mb-3" th:field="*{categoria}" aria-label="Default select example">
+                    <option value="" selected>Selecione a Categoria</option>
+                    <option th:each="categoria : ${categoriaList}" th:value="${categoria.id}"
+                            th:text="${categoria.nome}"></option>
                 </select>
             </div>
+
             <button type="submit" class="btn btn-primary">Salvar</button>
         </form>
     </div>
@@ -79,10 +90,16 @@
                 <th>Descrição</th>
                 <th>Valor</th>
                 <th>Data</th>
+                <th>Categoria</th>
             </tr>
             </thead>
             <tbody>
-            <tr>
+            <tr th:each="despesas : ${despesaList}">
+                <td th:text="${despesas.id}"></td>
+                <td th:text="${despesas.descricao}"></td>
+                <td th:text="${despesas.valor}"></td>
+                <td th:text="${despesas.data}"></td>
+                <td th:text="${despesas.categoria.nome}"></td>>
             </tr>
             </tbody>
         </table>

@@ -2,6 +2,7 @@ package com.example.gestaofinanceira.controller;
 
 import com.example.gestaofinanceira.domain.Categoria;
 import com.example.gestaofinanceira.domain.Despesa;
+import com.example.gestaofinanceira.domain.Receita;
 import com.example.gestaofinanceira.service.CategoriaService;
 import com.example.gestaofinanceira.service.DespesaService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,16 +27,21 @@ public class DespesaController {
     @Autowired
     private DespesaService despesaService;
 
+    @Autowired
+    private CategoriaService categoriaService;
+
     @GetMapping
     public ModelAndView listaDespesa(ModelMap model){
         ModelAndView modelAndView = new ModelAndView("cadastroDespesa");
 
-        if (model.containsAttribute("despesa"))
-            modelAndView.addObject("despesa",
-                    model.getAttribute("despesa"));
-        else {
-            modelAndView.addObject("despesa", despesaService.listAll());
+        modelAndView.addObject("categoriaList", categoriaService.listAll());
+
+        if (!model.containsAttribute("despesa")) {
+            model.addAttribute("despesa", new Despesa());
+            model.addAttribute("msg", new ArrayList<String>());
         }
+
+        modelAndView.addObject("despesaList", despesaService.listAll());
 
         return modelAndView;
     }
@@ -47,7 +53,7 @@ public class DespesaController {
 
         List<String> msg = new ArrayList<>();
 
-        if (bindingResult.hasErrors() || !msg.isEmpty()) {
+        if (bindingResult.hasErrors()) {
             redirectAttributes.addFlashAttribute("despesa", despesa);
 
             for (ObjectError objectError : bindingResult.getAllErrors()) {
@@ -57,11 +63,9 @@ public class DespesaController {
             }
 
             redirectAttributes.addFlashAttribute("msg", msg);
-
-            return "redirect:/despesa/criar";
+        }else {
+            despesaService.insert(despesa);
         }
-
-        despesaService.insert(despesa);
 
         return "redirect:/despesa";
     }
@@ -70,11 +74,9 @@ public class DespesaController {
     public ModelAndView retornaNovaDespesa(ModelMap model) {
         ModelAndView modelAndView = new ModelAndView("cadastroDespesa");
 
-        if (model.containsAttribute("despesa")) {
-            modelAndView.addObject("despesa", model.getAttribute("despesa"));
-            modelAndView.addObject("msg", model.getAttribute("msg"));
+        modelAndView.addObject("categoriaList", categoriaService.listAll());
 
-        } else {
+        if (!model.containsAttribute("despesa")) {
             modelAndView.addObject("despesa", new Despesa());
             modelAndView.addObject("msg", new ArrayList<String>());
         }

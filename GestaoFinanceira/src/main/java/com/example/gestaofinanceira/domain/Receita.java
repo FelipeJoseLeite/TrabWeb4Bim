@@ -1,8 +1,10 @@
 package com.example.gestaofinanceira.domain;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.math.BigDecimal;
-import java.time.LocalDate;
+import java.sql.Date;
 
 @Entity
 @Table(name = "RECEITA")
@@ -11,12 +13,15 @@ public class Receita {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Size(min = 2, max = 120)
     private String descricao;
 
+    @NotNull
     private BigDecimal valor;
+    @NotNull
+    private Date data;
 
-    private LocalDate data;
-
+    @NotNull
     @ManyToOne
     @JoinColumn(name = "categoria_id")
     private Categoria categoria;
@@ -24,7 +29,7 @@ public class Receita {
     public Receita() {
     }
 
-    public Receita(Long id, String descricao, BigDecimal valor, LocalDate data, Categoria categoria) {
+    public Receita(Long id, String descricao, BigDecimal valor, Date data, Categoria categoria) {
         this.id = id;
         this.descricao = descricao;
         this.valor = valor;
@@ -56,11 +61,11 @@ public class Receita {
         this.valor = valor;
     }
 
-    public LocalDate getData() {
+    public Date getData() {
         return data;
     }
 
-    public void setData(LocalDate data) {
+    public void setData(Date data) {
         this.data = data;
     }
 
@@ -70,5 +75,16 @@ public class Receita {
 
     public void setCategoria(Categoria categoria) {
         this.categoria = categoria;
+    }
+
+    @Override
+    public String toString() {
+        return "Receita{" +
+                "id=" + id +
+                ", descricao='" + descricao + '\'' +
+                ", valor=" + valor +
+                ", data=" + data +
+                ", categoria=" + categoria +
+                '}';
     }
 }

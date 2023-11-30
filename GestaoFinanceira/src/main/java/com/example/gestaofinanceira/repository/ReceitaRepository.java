@@ -9,7 +9,7 @@ import java.util.List;
 @Repository
 public interface ReceitaRepository extends JpaRepository<Receita, Long> {
 
-    @Query
+        @Query
     public List<Receita> findAllByOrderByIdAsc();
 
 

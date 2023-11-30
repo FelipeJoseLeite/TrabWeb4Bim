@@ -41,56 +41,73 @@
     <hr/>
     <hr/>
 </header>
-    <div class="container mt-5">
-        <h2>Cadastro de Receita</h2>
-        <form class="card-body"  method="post" action="/receita" th:object="${receita}">
-            <div class="form-group">
-                <label for="descricao" class="form-label">Descrição</label>
-                <input id="descricao" type="text" class="form-control" name="descricao" th:value="${receita.descricao}">
-            </div>
-            <div class="form-group">
-                <label th:for="valor">Valor:</label>
-                <input id="valor" type="number" name="valor" class="form-control" th:value="${receita.valor}">
-            </div>
-            <div class="form-group">
-                <label th:for="data">Data:</label>
-                <input id="data" type="date" class="form-control" name="data" th:value="${receita.data}">
-            </div>
-            <div class="form-group">
-                <label th:for="categoria">Categoria:</label>
-                <select  class="form-control">
-                    <option th:each="categoria : ${categoria}" th:value="${categoria}" th:text="${categoria.nome}"></option>
-                </select>
-            </div>
-            <button type="submit" class="btn btn-primary">Salvar</button>
-        </form>
-    </div>
-    <div class="container mt-5">
-        <h2 class="mb-4">Listagem de Receitas</h2>
 
-        <table class="table">
-            <thead class="thead-dark">
-            <tr>
-                <th>ID</th>
-                <th>Descrição</th>
-                <th>Valor</th>
-                <th>Data</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr th:each="receita : ${receita}">
-                <td th:text="${receita.id}"></td>
-                <td th:text="${receita.descricao}"></td>
-                <td th:text="${receita.valor}"></td>
-                <td th:text="${receita.data}"></td>
-            </tr>
-            </tbody>
-        </table>
+<div class="container mt-5">
+    <div class="row" th:if="${not #lists.isEmpty(msg)}">
+        <div th:each="msg : ${msg}">
+            <div class="alert alert-warning" role="alert" th:text="${msg}">
+                Mensagem de Alerta
+            </div>
+        </div>
     </div>
+</div>
 
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+<div class="container mt-5">
+    <h2>Cadastro de Receita</h2>
+    <form class="card-body"  method="POST" action="/receita" th:object="${receita}">
+        <div class="form-group">
+            <label for="descricao" class="form-label">Descrição</label>
+            <input id="descricao" type="text" class="form-control" name="descricao" th:value="${receita?.descricao}">
+        </div>
+        <div class="form-group">
+            <label th:for="valor">Valor:</label>
+            <input id="valor" type="number" name="valor" class="form-control" th:value="${receita?.valor}">
+        </div>
+        <div class="form-group">
+            <label th:for="data">Data:</label>
+            <input id="data" type="date" class="form-control" name="data" th:value="${receita?.data}">
+        </div>
+        <div class="form-group">
+            <label th:for="categoria">Categoria:</label>
+            <select class="form-select mb-3" th:field="*{categoria}" aria-label="Default select example">
+                <option value="" selected>Selecione a Categoria</option>
+                <option th:each="categoria : ${categoriaList}" th:value="${categoria.id}"
+                        th:text="${categoria.nome}"></option>
+            </select>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Salvar</button>
+    </form>
+</div>
+<div class="container mt-5">
+    <h2 class="mb-4">Listagem de Receitas</h2>
+
+    <table class="table">
+        <thead class="thead-dark">
+        <tr>
+            <th>ID</th>
+            <th>Descrição</th>
+            <th>Valor</th>
+            <th>Data</th>
+            <th>Categoria</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="receitas : ${receitaList}">
+            <td th:text="${receitas.id}"></td>
+            <td th:text="${receitas.descricao}"></td>
+            <td th:text="${receitas.valor}"></td>
+            <td th:text="${receitas.data}"></td>
+            <td th:text="${receitas.categoria.nome}"></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 
 </body>
 </html>
