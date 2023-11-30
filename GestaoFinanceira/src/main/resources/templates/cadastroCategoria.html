@@ -13,40 +13,53 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 </head>
 <body>
-<nav class="navbar navbar-expand-lg bg-body-tertiary">
-    <div class="container-fluid">
-        <a class="navbar-brand" href="/">Home</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
-                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="/categoria">Cadastro de Categorias</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="/despesa">Cadastro de Despesa</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="/receita">Cadastro de Receita</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="/lancamento">Consulta de Gastos</a>
-                </li>
-            </ul>
+<header>
+    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/">Home</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+                    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="/categoria">Cadastro de Categorias</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="/despesa">Cadastro de Despesa</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="/receita">Cadastro de Receita</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="/lancamento">Consulta de Gastos</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <hr/>
+    <hr/>
+</header>
+
+<div class="container mt-5">
+    <div class="row" th:if="${not #lists.isEmpty(msg)}">
+        <div th:each="msg : ${msg}">
+            <div class="alert alert-warning" role="alert" th:text="${msg}">
+                Mensagem de Alerta
+            </div>
         </div>
     </div>
-</nav>
-<hr/>
-<hr/>
+</div>
+
 <div class="container mt-5">
     <h2>Cadastro de Categoria</h2>
 
-    <form>
+    <form class="card-body"  method="POST" action="/categoria" th:object="${categoria}">
         <div class="form-group">
-            <label th:for="nome">Nome:</label>
-            <input type="text" class="form-control">
+            <label for="nome" class="form-label">Descrição</label>
+            <input id="nome" type="text" class="form-control" name="nome" th:value="${categoria?.nome}">
         </div>
         <button type="submit" class="btn btn-primary">Salvar</button>
     </form>
@@ -62,9 +75,9 @@
         </tr>
         </thead>
         <tbody>
-        <tr th:each="categoria : ${categoria}">
-            <td th:text="${categoria.id}"></td>
-            <td th:text="${categoria.nome}"></td>
+        <tr th:each="categorias : ${categoriaList}">
+            <td th:text="${categorias.id}"></td>
+            <td th:text="${categorias.nome}"></td>
         </tr>
         </tbody>
     </table>

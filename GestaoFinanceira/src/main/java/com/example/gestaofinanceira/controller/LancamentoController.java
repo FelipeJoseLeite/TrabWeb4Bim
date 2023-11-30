@@ -19,7 +19,7 @@ public class LancamentoController {
     @Autowired
     private LancamentoService lancamentoService;
 
-    @GetMapping
+    @GetMapping("/filtro")
     public String consultarLancamentos(
             @RequestParam(required = false) LocalDate dataInicio,
             @RequestParam(required = false) LocalDate dataFim,
@@ -27,9 +27,9 @@ public class LancamentoController {
             Model model) {
 
         List<Lancamento> lancamento = lancamentoService.consultarLancamentos(dataInicio, dataFim, tipo);
-        model.addAttribute("lancamento", lancamento);
+        model.addAttribute("lancamentoList", lancamento);
 
-        return "consultaLancamento";
+        return "redirect:/lancamento";
     }
 
 }

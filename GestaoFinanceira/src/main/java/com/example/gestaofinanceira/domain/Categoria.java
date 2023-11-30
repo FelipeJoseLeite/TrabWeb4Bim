@@ -1,6 +1,7 @@
 package com.example.gestaofinanceira.domain;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "CATEGORIA")
@@ -8,6 +9,7 @@ public class Categoria {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @NotNull
     private String nome;
 
     public Categoria() {

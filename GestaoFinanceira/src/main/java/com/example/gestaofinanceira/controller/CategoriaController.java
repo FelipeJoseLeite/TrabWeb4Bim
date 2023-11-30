@@ -1,6 +1,7 @@
 package com.example.gestaofinanceira.controller;
 
 import com.example.gestaofinanceira.domain.Categoria;
+import com.example.gestaofinanceira.domain.Despesa;
 import com.example.gestaofinanceira.service.CategoriaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -28,12 +29,12 @@ public class CategoriaController {
     public ModelAndView listaCategorias(ModelMap model){
         ModelAndView modelAndView = new ModelAndView("cadastroCategoria");
 
-        if (model.containsAttribute("categoria"))
-            modelAndView.addObject("categoria",
-                    model.getAttribute("categoria"));
-        else {
-            modelAndView.addObject("categoria", categoriaService.listAll());
+        if (!model.containsAttribute("categoria")) {
+            model.addAttribute("categoria", new Categoria());
+            model.addAttribute("msg", new ArrayList<String>());
         }
+
+        modelAndView.addObject("categoriaList", categoriaService.listAll());
 
         return modelAndView;
     }
@@ -45,7 +46,7 @@ public class CategoriaController {
 
         List<String> msg = new ArrayList<>();
 
-        if (bindingResult.hasErrors() || !msg.isEmpty()) {
+        if (bindingResult.hasErrors()) {
             redirectAttributes.addFlashAttribute("categoria", categoria);
 
             for (ObjectError objectError : bindingResult.getAllErrors()) {
@@ -55,13 +56,11 @@ public class CategoriaController {
             }
 
             redirectAttributes.addFlashAttribute("msg", msg);
-
-            return "redirect:/cadastroCategoria";
+        }else {
+            categoriaService.insert(categoria);
         }
 
-        categoriaService.insert(categoria);
-
-        return "redirect:/cadastroCategoria";
+        return "redirect:/categoria";
     }
 
     @GetMapping(path = "/criar")
@@ -69,12 +68,9 @@ public class CategoriaController {
         ModelAndView modelAndView = new ModelAndView("cadastroCategoria");
 
         if (model.containsAttribute("categoria")) {
-            modelAndView.addObject("categoria", model.getAttribute("categoria"));
-            modelAndView.addObject("msg", model.getAttribute("msg"));
-
-        } else {
             modelAndView.addObject("categoria", new Categoria());
             modelAndView.addObject("msg", new ArrayList<String>());
+
         }
 
         return modelAndView;

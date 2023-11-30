@@ -48,15 +48,15 @@
             <div class="form-row">
                 <div class="form-group col-md-3">
                     <label for="dataInicio">Data Início:</label>
-                    <input type="date" name="dataInicio" class="form-control">
+                    <input id="dataInicio" type="date" name="dataInicio" class="form-control">
                 </div>
                 <div class="form-group col-md-3">
                     <label for="dataFim">Data Fim:</label>
-                    <input type="date" name="dataFim" class="form-control">
+                    <input id="dataFim" type="date" name="dataFim"  class="form-control">
                 </div>
                 <div class="form-group col-md-3">
                     <label for="tipo">Tipo:</label>
-                    <select name="tipo" class="form-control">
+                    <select id="tipo" name="tipo" class="form-control">
                         <option value="RECEITA">Receita</option>
                         <option value="DESPESA">Despesa</option>
                     </select>
@@ -79,12 +79,12 @@
             </tr>
             </thead>
             <tbody>
-            <tr th:each="lancamento : ${lancamentos}">
-                <td th:text="${lancamento.id}"></td>
-                <td th:text="${lancamento.descricao}"></td>
-                <td th:text="${lancamento.valor}"></td>
-                <td th:text="${lancamento.data}"></td>
-                <td th:text="${lancamento.tipo}"></td>
+            <tr th:each="lancamentos : ${lancamentoList}">
+                <td th:text="${lancamentos.id}"></td>
+                <td th:text="${lancamentos.descricao}"></td>
+                <td th:text="${lancamentos.valor}"></td>
+                <td th:text="${lancamentos.data}"></td>
+                <td th:text="${lancamentos.tipo}"></td>
             </tr>
             </tbody>
         </table>

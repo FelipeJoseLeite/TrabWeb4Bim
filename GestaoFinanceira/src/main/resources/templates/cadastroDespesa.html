@@ -85,22 +85,22 @@
 
         <table class="table">
             <thead class="thead-dark">
-            <tr>
-                <th>ID</th>
-                <th>Descrição</th>
-                <th>Valor</th>
-                <th>Data</th>
-                <th>Categoria</th>
-            </tr>
-            </thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Descrição</th>
+                    <th>Valor</th>
+                    <th>Data</th>
+                    <th>Categoria</th>
+                </tr>
+                </thead>
             <tbody>
-            <tr th:each="despesas : ${despesaList}">
-                <td th:text="${despesas.id}"></td>
-                <td th:text="${despesas.descricao}"></td>
-                <td th:text="${despesas.valor}"></td>
-                <td th:text="${despesas.data}"></td>
-                <td th:text="${despesas.categoria.nome}"></td>>
-            </tr>
+                <tr th:each="despesas : ${despesaList}">
+                    <td th:text="${despesas.id}"></td>
+                    <td th:text="${despesas.descricao}"></td>
+                    <td th:text="${despesas.valor}"></td>
+                    <td th:text="${despesas.data}"></td>
+                    <td th:text="${despesas.categoria.nome}"></td>>
+                </tr>
             </tbody>
         </table>
     </div>
