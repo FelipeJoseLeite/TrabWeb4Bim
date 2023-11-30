@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -21,8 +22,8 @@ public class LancamentoController {
 
     @GetMapping("/filtro")
     public String consultarLancamentos(
-            @RequestParam(required = false) LocalDate dataInicio,
-            @RequestParam(required = false) LocalDate dataFim,
+            @RequestParam(required = false) Date dataInicio,
+            @RequestParam(required = false) Date dataFim,
             @RequestParam(required = false) String tipo,
             Model model) {
 

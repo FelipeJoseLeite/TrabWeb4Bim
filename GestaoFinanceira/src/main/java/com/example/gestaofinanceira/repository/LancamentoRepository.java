@@ -5,15 +5,16 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 
 @Repository
 public interface LancamentoRepository extends JpaRepository<Lancamento, Long> {
 
     @Query
-    List<Lancamento> findByDataBetweenAndTipo(LocalDate dataInicio, LocalDate dataFim, String tipo);
+    List<Lancamento> findByDataBetweenAndTipo(Date dataInicio, Date dataFim, String tipo);
     @Query
-    List<Lancamento> findByDataBetween(LocalDate dataInicio, LocalDate dataFim);
+    List<Lancamento> findByDataBetween(Date dataInicio, Date dataFim);
     @Query
     List<Lancamento> findByTipo(String tipo);
 

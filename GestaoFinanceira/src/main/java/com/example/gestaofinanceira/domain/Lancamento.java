@@ -3,6 +3,7 @@ package com.example.gestaofinanceira.domain;
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.Date;
 
 @Entity
 @Table(name = "LANCAMENTO")
@@ -14,13 +15,13 @@ public class Lancamento {
 
     private String descricao;
     private BigDecimal valor;
-    private LocalDate data;
+    private Date data;
     private String tipo;
 
     public Lancamento() {
     }
 
-    public Lancamento(Long id, String descricao, BigDecimal valor, LocalDate data, String tipo) {
+    public Lancamento(Long id, String descricao, BigDecimal valor, Date data, String tipo) {
         this.id = id;
         this.descricao = descricao;
         this.valor = valor;
@@ -52,11 +53,11 @@ public class Lancamento {
         this.valor = valor;
     }
 
-    public LocalDate getData() {
+    public Date getData() {
         return data;
     }
 
-    public void setData(LocalDate data) {
+    public void setData(Date data) {
         this.data = data;
     }
 
