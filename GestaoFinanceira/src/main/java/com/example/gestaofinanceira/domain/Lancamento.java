@@ -5,8 +5,6 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.Date;
 
-@Entity
-@Table(name = "LANCAMENTO")
 public class Lancamento {
 
     @Id
@@ -14,14 +12,14 @@ public class Lancamento {
     private Long id;
 
     private String descricao;
-    private BigDecimal valor;
+    private Double valor;
     private Date data;
     private String tipo;
 
     public Lancamento() {
     }
 
-    public Lancamento(Long id, String descricao, BigDecimal valor, Date data, String tipo) {
+    public Lancamento(Long id, String descricao, Double valor, Date data, String tipo) {
         this.id = id;
         this.descricao = descricao;
         this.valor = valor;
@@ -45,11 +43,11 @@ public class Lancamento {
         this.descricao = descricao;
     }
 
-    public BigDecimal getValor() {
+    public Double getValor() {
         return valor;
     }
 
-    public void setValor(BigDecimal valor) {
+    public void setValor(Double valor) {
         this.valor = valor;
     }
 

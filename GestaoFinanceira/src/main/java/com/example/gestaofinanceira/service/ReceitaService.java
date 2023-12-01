@@ -29,4 +29,23 @@ public class ReceitaService {
         return receitaRepository.findAllByOrderByIdAsc();
     }
 
+    public double calculaTotalReceita(){
+
+        List<Receita> receitas = listAll();
+
+        double total = 0;
+
+        for(Receita receita: receitas){
+
+            total = total + receita.getValor();
+        }
+
+        return total;
+
+    }
+
+    public List<Receita> listUltimosLancamentos() {
+        return receitaRepository.findTop10ByOrderByIdDesc();
+    }
+
 }

@@ -1,45 +1,44 @@
 package com.example.gestaofinanceira.controller;
 import com.example.gestaofinanceira.domain.Lancamento;
+import com.example.gestaofinanceira.service.DespesaService;
 import com.example.gestaofinanceira.service.LancamentoService;
+import com.example.gestaofinanceira.service.ReceitaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
+
 import java.util.List;
 
 @Controller
+@RequestMapping("/")
 public class HomeController {
 
     @Autowired
     private LancamentoService lancamentoService;
 
-    @GetMapping("/")
+    @Autowired
+    private ReceitaService receitaService;
+
+    @Autowired
+    private DespesaService despesaService;
+
+    @GetMapping
     public String home(Model model) {
 
-        Double receitaTotal = 0.0;
-        Double despesaTotal = 0.0;
+        ModelAndView modelAndView = new ModelAndView("home");
 
-        Double receitaTotalReal = lancamentoService.calcularTotalReceita();
-        Double despesaTotalReal = lancamentoService.calcularTotalDespesa();
+        Double receitaTotalReal = receitaService. calculaTotalReceita();
+        Double despesaTotalReal = despesaService.calculaTotalDespesa();
+        Double total = receitaTotalReal - despesaTotalReal;
 
-        if (receitaTotalReal != null) {
-            receitaTotal = receitaTotalReal;
-        }
-
-        if (despesaTotalReal != null) {
-            despesaTotal = despesaTotalReal;
-        }
-
-        if (receitaTotal != 0 && despesaTotal != 0) {
-            Double totalLiquido = receitaTotal - despesaTotal;
-            model.addAttribute("totalLiquido", totalLiquido);
-        }
-
-        List<Lancamento> ultimosLancamentos = lancamentoService.buscarUltimosLancamentos(10);
-
-        model.addAttribute("receitaTotal", receitaTotal);
-        model.addAttribute("despesaTotal", despesaTotal);
-        model.addAttribute("ultimosLancamentos", ultimosLancamentos);
+        model.addAttribute("receitaTotal", receitaTotalReal);
+        model.addAttribute("despesaTotal", despesaTotalReal);
+        model.addAttribute("totalLiquido", total);
+        model.addAttribute("lancamentoDespesaList", despesaService.listUltimosLancamentos());
+        model.addAttribute("lancamentoReceitaList", receitaService.listUltimosLancamentos());
 
         return "home";
     }

@@ -17,7 +17,7 @@ public class Receita {
     private String descricao;
 
     @NotNull
-    private BigDecimal valor;
+    private Double valor;
     @NotNull
     private Date data;
 
@@ -29,7 +29,7 @@ public class Receita {
     public Receita() {
     }
 
-    public Receita(Long id, String descricao, BigDecimal valor, Date data, Categoria categoria) {
+    public Receita(Long id, String descricao, Double valor, Date data, Categoria categoria) {
         this.id = id;
         this.descricao = descricao;
         this.valor = valor;
@@ -53,11 +53,11 @@ public class Receita {
         this.descricao = descricao;
     }
 
-    public BigDecimal getValor() {
+    public Double getValor() {
         return valor;
     }
 
-    public void setValor(BigDecimal valor) {
+    public void setValor(Double valor) {
         this.valor = valor;
     }
 

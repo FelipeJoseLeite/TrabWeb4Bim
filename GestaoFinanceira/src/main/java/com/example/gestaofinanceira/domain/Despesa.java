@@ -18,7 +18,7 @@ public class Despesa {
     @Size(min = 2, max = 120)
     private String descricao;
     @NotNull
-    private BigDecimal valor;
+    private Double valor;
     @NotNull
     private Date data;
     @NotNull
@@ -29,7 +29,7 @@ public class Despesa {
     public Despesa() {
     }
 
-    public Despesa(Long id, String descricao, BigDecimal valor, Date data, Categoria categoria) {
+    public Despesa(Long id, String descricao, Double valor, Date data, Categoria categoria) {
         this.id = id;
         this.descricao = descricao;
         this.valor = valor;
@@ -53,11 +53,11 @@ public class Despesa {
         this.descricao = descricao;
     }
 
-    public BigDecimal getValor() {
+    public Double getValor() {
         return valor;
     }
 
-    public void setValor(BigDecimal valor) {
+    public void setValor(Double valor) {
         this.valor = valor;
     }
 

@@ -38,8 +38,7 @@
         </div>
     </div>
 </nav>
-<hr/>
-<hr/>
+
 <div class="container mt-5">
     <h2>Painel de Resumo</h2>
 
@@ -70,26 +69,63 @@
         </div>
     </div>
 
-    <h2 class="mt-5">Últimos Lançamentos</h2>
 
-    <table class="table">
-        <thead class="thead-dark">
-        <tr>
-            <th>ID</th>
-            <th>Descrição</th>
-            <th>Valor</th>
-            <th>Data</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="lancamento : ${ultimosLancamentos}">
-            <td th:text="${lancamento.id}"></td>
-            <td th:text="${lancamento.descricao}"></td>
-            <td th:text="${lancamento.valor}"></td>
-            <td th:text="${lancamento.data}"></td>
-        </tr>
-        </tbody>
-    </table>
+
+    <div class="container text-center">
+        <div class="row">
+            <div class="col">
+                <h2 class="mt-5">10 Últimas Despesas</h2>
+
+                <table class="table">
+                    <thead class="thead-dark">
+                    <tr>
+                        <th>ID</th>
+                        <th>Descrição</th>
+                        <th>Valor</th>
+                        <th>Data</th>
+                        <th>Categoria</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="despesas : ${lancamentoDespesaList}">
+                        <td th:text="${despesas.id}"></td>
+                        <td th:text="${despesas.descricao}"></td>
+                        <td th:text="${despesas.valor}"></td>
+                        <td th:text="${despesas.data}"></td>
+                        <td th:text="${despesas.categoria.nome}"></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="col">
+                <h2 class="mt-5">10 Últimas Receitas</h2>
+
+                <table class="table">
+                    <thead class="thead-dark">
+                    <tr>
+                        <th>ID</th>
+                        <th>Descrição</th>
+                        <th>Valor</th>
+                        <th>Data</th>
+                        <th>Categoria</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="receitas : ${lancamentoReceitaList}">
+                        <td th:text="${receitas.id}"></td>
+                        <td th:text="${receitas.descricao}"></td>
+                        <td th:text="${receitas.valor}"></td>
+                        <td th:text="${receitas.data}"></td>
+                        <td th:text="${receitas.categoria.nome}"></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+    </div>
+
+
 </div>
 
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
