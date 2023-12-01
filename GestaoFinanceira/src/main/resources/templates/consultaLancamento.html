@@ -13,85 +13,86 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 </head>
 <body>
-    <header>
-        <nav class="navbar navbar-expand-lg bg-body-tertiary">
-            <div class="container-fluid">
-                <a class="navbar-brand" href="/">Home</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                        <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="/categoria">Cadastro de Categorias</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="/despesa">Cadastro de Despesa</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="/receita">Cadastro de Receita</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="/lancamento">Consulta de Gastos</a>
-                        </li>
-                    </ul>
-                </div>
+<header>
+    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/">Home</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="/categoria">Cadastro de Categorias</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="/despesa">Cadastro de Despesa</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="/receita">Cadastro de Receita</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="/lancamento">Consulta de Gastos</a>
+                    </li>
+                </ul>
             </div>
-        </nav>
-        <hr/>
-        <hr/>
-    </header>
-    <div class="container mt-5">
-        <h2>Consulta de Lançamentos</h2>
+        </div>
+    </nav>
+    <hr/>
+    <hr/>
+</header>
+<div class="container mt-5">
+    <h2>Consulta de Lançamentos</h2>
 
-        <form action="/lancamento/filtro" method="GET" class="mb-4">
-            <div class="form-row">
-                <div class="form-group col-md-3">
-                    <label for="dataInicio">Data Início:</label>
-                    <input id="dataInicio" type="date" name="dataInicio" class="form-control" >
-                </div>
-                <div class="form-group col-md-3">
-                    <label for="dataFim">Data Fim:</label>
-                    <input id="dataFim" type="date" name="dataFim"  class="form-control">
-                </div>
-                <div class="form-group col-md-3">
-                    <label for="tipo">Tipo:</label>
-                    <select id="tipo" name="tipo" class="form-control">
-                        <option value="SELECIONE">Selecione</option>
-                        <option value="RECEITA">Receita</option>
+    <form action="/lancamento/filtro" method="GET" class="mb-4">
+        <div class="form-row">
+            <div class="form-group col-md-3">
+                <label for="dataInicio">Data Início:</label>
+                <input id="dataInicio" type="date" name="dataInicio" class="form-control">
+            </div>
+            <div class="form-group col-md-3">
+                <label for="dataFim">Data Fim:</label>
+                <input id="dataFim" type="date" name="dataFim" class="form-control">
+            </div>
+            <div class="form-group col-md-3">
+                <label for="tipo">Tipo:</label>
+                <select id="tipo" name="tipo" class="form-control">
+                    <option value="SELECIONE">Selecione</option>
+                    <option value="RECEITA">Receita</option>
                     <option value="DESPESA">Despesa</option>
-            </select>
-    </div>
-    <div class="form-group col-md-3">
-        <label></label>
-        <button type="submit" class="btn btn-primary">Consultar</button>
-    </div>
-    </div>
+                </select>
+            </div>
+            <div class="form-group col-md-3">
+                <button type="submit" class="btn btn-primary mt-4">Consultar</button>
+            </div>
+        </div>
     </form>
     <table class="table">
         <thead class="thead-dark">
         <tr>
             <th>ID</th>
-                <th>Descrição</th>
-                <th>Valor</th>
-                <th>Data</th>
-                <th>Tipo</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr th:each="lancamentos : ${lancamentoList}">
-                <td th:text="${lancamentos.id}"></td>
-                <td th:text="${lancamentos.descricao}"></td>
-                <td th:text="${lancamentos.valor}"></td>
-                <td th:text="${lancamentos.data}"></td>
-                <td th:text="${lancamentos.tipo}"></td>
-            </tr>
-            </tbody>
-        </table>
-    </div>
+            <th>Descrição</th>
+            <th>Valor</th>
+            <th>Data</th>
+            <th>Tipo</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="lancamentos : ${lancamentoList}">
+            <td th:text="${lancamentos.id}"></td>
+            <td th:text="${lancamentos.descricao}"></td>
+            <td th:text="${lancamentos.valor}"></td>
+            <td th:text="${lancamentos.data}"></td>
+            <td th:text="${lancamentos.tipo}"></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
 
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 </body>
 </html>

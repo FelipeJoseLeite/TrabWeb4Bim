@@ -26,11 +26,16 @@ public class LancamentoController {
     @Autowired
     private LancamentoService lancamentoService;
 
+
     @GetMapping
     public ModelAndView listaLancamentos(ModelMap model){
         ModelAndView modelAndView = new ModelAndView("consultaLancamento");
 
-        modelAndView.addObject("lancamentoList", lancamentoService.findAll());
+        if (model.containsAttribute("lancamentoList"))
+            modelAndView.addObject("lancamentoList", model.getAttribute("lancamentoList"));
+        else {
+            modelAndView.addObject("lancamentoList", lancamentoService.findAll());
+        }
 
         return modelAndView;
     }
@@ -41,8 +46,7 @@ public class LancamentoController {
                                    @RequestParam("tipo") String tipoLancamento,
                                    RedirectAttributes redirectAttributes) {
 
-        redirectAttributes.addFlashAttribute("lancamentoList",
-                lancamentoService.findFiltros(dataInicio, dataFim, tipoLancamento));
+        redirectAttributes.addFlashAttribute("lancamentoList", lancamentoService.findFiltros(dataInicio, dataFim, tipoLancamento));
 
         return "redirect:/lancamento";
     }

@@ -66,24 +66,28 @@ public class LancamentoService {
 
         SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
 
+
         List<Lancamento> lancamentoList = new ArrayList<>();
+        List<Receita> receitas= new ArrayList<>();
+        List<Despesa> despesas= new ArrayList<>();
 
         try {
             Date dataInicialFormat = null;
             Date dataFinalFormat = null;
 
-            if (dataInicial != null && !dataInicial.isEmpty()) {
+            if (dataInicial != null && !dataInicial.isEmpty() && dataFinal != null && !dataFinal.isEmpty()) {
                 dataInicialFormat = new Date(formato.parse(dataInicial).getTime());
-            }
-
-            if (dataFinal != null && !dataFinal.isEmpty()) {
                 dataFinalFormat = new Date(formato.parse(dataFinal).getTime());
+
+                receitas = receitaRepository.listFilter(dataInicialFormat, dataFinalFormat);
+                despesas = despesaRepository.listFilter(dataInicialFormat, dataFinalFormat);
+            } else {
+                receitas = receitaService.listAll();
+                despesas = despesaService.listAll();
             }
 
-            List<Receita> receitas = receitaRepository.listFilter(dataInicialFormat, dataFinalFormat);
-            List<Despesa> despesas = despesaRepository.listFilter(dataInicialFormat, dataFinalFormat);
 
-            if (tipoLancamento == "SELECIONE" || tipoLancamento == "RECEITA") {
+            if (("SELECIONE").equals(tipoLancamento) || ("RECEITA").equals(tipoLancamento)) {
                 for (Receita receita : receitas) {
                     Lancamento lancamento = new Lancamento();
                     lancamento.setData(receita.getData());
@@ -94,7 +98,7 @@ public class LancamentoService {
                     lancamentoList.add(lancamento);
                 }
             }
-            if (tipoLancamento == "SELECIONE" || tipoLancamento == "DESPESA") {
+            if (("SELECIONE").equals(tipoLancamento) || ("DESPESA").equals(tipoLancamento)) {
 
                 for (Despesa despesa : despesas) {
                     Lancamento lancamento = new Lancamento();
